@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import projekdatafilm.Koneksi;
 
 public class login extends javax.swing.JFrame {
     
@@ -165,7 +166,8 @@ public class login extends javax.swing.JFrame {
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
         // TODO add your handling code here:
         try{
-            Connection con = MyConnection.getConnection();
+            Koneksi koneksi = new Koneksi();
+            Connection con = koneksi.getConnection();
             String sql = "SELECT * FROM register WHERE username = ? AND password = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, txt_username.getText()); // Placeholder pertama

@@ -13,10 +13,10 @@ import java.util.*;
 
 public class Jasper {
 
-    private Connection Connection;
+    private Koneksi koneksi;
 
     public Jasper() {
-        MyConnection = new myconnection();
+        koneksi = new Koneksi();
     }
 
     public void generateReport(List<Map<String, ?>> data) {
@@ -34,7 +34,7 @@ public class Jasper {
             jasperDesign.setWhenNoDataType(WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL);
 
             // Add Fields
-            String[] fields = { "nim", "nama", "jk", "prodi", "alamat"};
+            String[] fields = { "nim", "nama", "jk", "prodi", "alamat" };
             for (String field : fields) {
                 JRDesignField jrField = new JRDesignField();
                 jrField.setName(field);
@@ -61,7 +61,7 @@ public class Jasper {
             headerBand.setHeight(30);
             int x = 0;
 
-            String[] headers = { "NIM", "Nama", "Jenis Kelamin", "Program Studi", "Kelas"};
+            String[] headers = { "NIM", "Nama", "Jenis Kelamin", "Program Studi", "Kelas" };
             for (int i = 0; i < headers.length; i++) {
                 JRDesignStaticText headerText = new JRDesignStaticText();
                 headerText.setText(headers[i]);
@@ -135,10 +135,10 @@ public class Jasper {
         List<Map<String, ?>> data = new ArrayList<>();
         String sql = "SELECT nim, nama, jk, prodi, alamat FROM mhs";
 
-        try (Connection con = Connection.con;
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
+        try (Connection con = koneksi.con;
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery(sql)) {
+                    
             while (rs.next()) {
                 Map<String, Object> row = new HashMap<>();
                 row.put("nim", rs.getString("nim"));

@@ -9,7 +9,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class season extends javax.swing.JFrame {
 
-    Connection con = connection.getConnection();
+    Koneksi koneksi = new Koneksi();
+    Connection con = koneksi.getConnection();
     private String filename;
     private PreparedStatement stat;
     private ResultSet rs;
@@ -41,7 +42,9 @@ public class season extends javax.swing.JFrame {
          tbl.addColumn("Tahun");
          
          try{
-             Statement st = (Statement) MyConnection.getConnection().createStatement();
+            Koneksi koneksi = new Koneksi();
+             Connection con = koneksi.getConnection();
+             Statement st = con.createStatement();
              ResultSet rs = st.executeQuery("SELECT * FROM season");
              
              while (rs.next()){
@@ -317,8 +320,8 @@ public class season extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             String sql = "SELECT * FROM season WHERE id_season='" + txt_idSeason.getText() + "'";
-            Connection conn = (Connection) MyConnection.getConnection();
-            PreparedStatement pst = conn.prepareStatement(sql);
+            Connection con = koneksi.getConnection();
+            PreparedStatement pst = con.prepareStatement(sql);
             pst.execute();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage());

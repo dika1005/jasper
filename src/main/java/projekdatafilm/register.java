@@ -37,7 +37,8 @@ public class register extends javax.swing.JFrame {
     
     private void autonumber(){
         try{
-            Connection con = MyConnection.getConnection();
+            Koneksi koneksi = new Koneksi();
+            Connection con = koneksi.getConnection();
             Statement st = con.createStatement();
             String sql = "SELECT * FROM register ORDER BY id DESC";
             ResultSet r = st.executeQuery(sql);
@@ -372,7 +373,8 @@ public class register extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Username atau Password tidak boleh kosong");
     } else {
         try {
-            Connection con = MyConnection.getConnection();
+            Koneksi koneksi = new Koneksi();
+            Connection con = koneksi.getConnection();
             String sql = "INSERT INTO register (id, username, nama, password, foto) VALUES (?,?,?,?,?)";
             PreparedStatement p = con.prepareStatement(sql);
             p.setString(1, id);
